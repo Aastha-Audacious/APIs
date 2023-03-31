@@ -1,12 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    // _id:mongoose.Schema.Types.ObjectId,
-    name: String,
-    email: String,
-    password:String,
-    phone: Number,
-    gender: String,
-})
+  username: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true,
+    },
+    match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+  },
+  password: { type: String, required: true },
+  confirmPassword: String,
+});
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model("user", userSchema);
